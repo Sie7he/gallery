@@ -46,16 +46,18 @@ export const Grid = () => {
                                 return (
                                     j % 3 === 0 ?
 
-                                        <div className="w-full p-1 md:p-2 relative" key={j} onClick={() => handleClick(img.id)}>
-
+                                        <div className="w-full p-1 md:p-2 relative cursor-pointer" key={j} onClick={() => handleClick(img.id)}>
+                                            
+                                            <picture  style={{viewTransitionName:`${img.id}`}} >
                                             <img
                                                 alt={img.alt_description}
                                                 className="block h-full w-full rounded-lg object-cover object-center"
                                                 src={img.urls.regular}
-                                                style={{ viewTransitionName: `${img.id}` }}
+                                               
 
 
                                             />
+                                            </picture>
                                             <div className="absolute flex justify-center items-center rounded-lg bottom-2 right-2 top-2 left-2 p-20 opacity-0 bg-gray-800 sm:hover:opacity-70 transition delay-75">
                                                 <h3 className="sm:text-xl text-sm text-white text-center font-bold hidden sm:block">
                                                     {img.alt_description}</h3>
@@ -66,12 +68,12 @@ export const Grid = () => {
 
                                         :
 
-                                        <div className="w-1/2 p-1 md:p-2 relative" key={j} onClick={() => handleClick(img.id)}>
+                                        <div className="w-1/2 p-1 md:p-2 relative cursor-pointer" key={j} onClick={() => handleClick(img.id)}>
                                             <img
                                                 alt={img.alt_description}
                                                 className="block h-full w-full rounded-lg object-cover object-center"
                                                 src={img.urls.full}
-                                                style={{ viewTransitionName: img.id }}
+                                                style={{viewTransitionName: `${img.id}`}}
                                             />
                                             <div className="absolute flex justify-center items-center rounded-lg bottom-2 right-2 top-2 left-2 p-10 opacity-0 sm:bg-gray-800 hover:opacity-70 transition delay-75">
                                                 <h3 className="text-xl text-white hidden sm:block">

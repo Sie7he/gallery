@@ -1,0 +1,27 @@
+@keyframes slide-left {
+    from {
+      right: 0%;
+    }
+    to {
+      right: -100%;
+    }
+  }
+  
+  @keyframes slide-right {
+    from {
+      right: 100%;
+    }
+    to {
+      right: 0%;
+    }
+  }
+  
+  ::view-transition-old(root) {
+    animation-name: slide-left;
+    animation-duration: 1s;
+  }
+  
+  ::view-transition-new(root) {
+    animation-name: slide-right;
+    animation-duration: 1s;
+  }
