@@ -1,12 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { getImg } from '../services/request';
 import { Link, useNavigate } from 'react-router-dom';
 import { flushSync } from 'react-dom';
+import { Contexto } from '../services/Memory';
 
 export const Grid = () => {
 
+
+    const [state,dispatch] = useContext(Contexto);
     const url = 'https://api.unsplash.com/photos/?client_id=R8DT-ZH2fRH0v0giTIuIyMoozd2pI6LC7Ew8gUTKOYI'
-    const [imagen, setImagen] = useState([]);
+
+
+    useEffect(() => {
+        async function getItems() {
+            const fotos = await getImg(url)
+            dispatch({tipo : 'mostrar', fotos})
+        }
+        getItems();
+    }, [dispatch])
+
     const navigate = useNavigate();
 
     const handleClick = (id) => {
@@ -24,36 +36,31 @@ export const Grid = () => {
 
     }
 
-    useEffect(() => {
-        async function getItems() {
-            const response = await getImg(url)
-            setImagen(response);
-            console.log(response)
-        }
-        getItems();
-    }, [])
-
+    
 
     return (
-        <div className="container mx-auto px-5 py-2 lg:px-32 lg:pt-24">
+        <>
+      
+    <main className="h-screen container mx-auto px-5 py-2 lg:px-32 lg:pt-24">
             <div className="-m-1 flex flex-wrap md:-m-2">{
 
 
-                [...Array(Math.ceil(imagen.length / 3))].map((fila, i) => {
+                [...Array(Math.ceil(state.orden.length / 3))].map((fila, i) => {
                     return (
-                        <div className="flex w-1/2 flex-wrap" key={i}>
-                            {imagen.slice(i * 3, i * 3 + 3).map((img, j) => {
+                        <div className="flex w-1/2 flex-wrap " key={i}>
+                            {...state.orden.slice(i * 3, i * 3 + 3).map((imgId, j) => {
+                                const img = state.objetos[imgId]
                                 return (
                                     j % 3 === 0 ?
 
-                                        <div className="w-full p-1 md:p-2 relative cursor-pointer" key={j} onClick={() => handleClick(img.id)}>
+                                        <div className="w-full h-auto p-1  md:p-2 relative cursor-pointer" key={j} onClick={() => handleClick(img.id)}>
                                             
-                                            <picture  style={{viewTransitionName:`${img.id}`}} >
+                                            <picture>
                                             <img
                                                 alt={img.alt_description}
-                                                className="block h-full w-full rounded-lg object-cover object-center"
+                                                className="block h-full w-full rounded-lg object-cover object-center "
                                                 src={img.urls.regular}
-                                               
+                                                style={{viewTransitionName:`imagen-${img.id}`}}
 
 
                                             />
@@ -72,8 +79,8 @@ export const Grid = () => {
                                             <img
                                                 alt={img.alt_description}
                                                 className="block h-full w-full rounded-lg object-cover object-center"
-                                                src={img.urls.full}
-                                                style={{viewTransitionName: `${img.id}`}}
+                                                src={img.urls.small}
+                                                style={{viewTransitionName: `imagen-${img.id}`}}
                                             />
                                             <div className="absolute flex justify-center items-center rounded-lg bottom-2 right-2 top-2 left-2 p-10 opacity-0 sm:bg-gray-800 hover:opacity-70 transition delay-75">
                                                 <h3 className="text-xl text-white hidden sm:block">
@@ -91,6 +98,9 @@ export const Grid = () => {
                     );
                 })}
             </div>
-        </div>
+            </main>
+            
+            
+            </>
     );
 }
