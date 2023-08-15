@@ -26,6 +26,7 @@ export const Photo = () => {
         getPhoto();
     }, [dispatch])
 
+
     return (
        img && 
             <>
@@ -38,7 +39,7 @@ export const Photo = () => {
                        
                             <img
                                 alt={img.alt_description}
-                                className="aspect-[8/7] h-full object-cover w-full max-w-full rounded pic-two"
+                                className="aspect-[28/29] h-full object-fill w-full max-w-full rounded pic-two"
                                 src={img.urls.small}
                                 style={{ viewTransitionName: `imagen-${img.id}` }}
                             />
@@ -46,7 +47,7 @@ export const Photo = () => {
                     </picture>
                 </div>
                 <aside>
-                    <h1 className='text-5xl font-black mb-4'>{img.alt_description}</h1>
+                    <h1 className='text-3xl text-amber-700 mb-4'>{img.alt_description}</h1>
                     <p className='text-lg'>{img.description}</p>
                 </aside>
             </div>
