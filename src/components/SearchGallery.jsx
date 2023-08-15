@@ -7,9 +7,10 @@ import { Contexto } from '../services/Memory';
 
 export const SearchGallery = () => {
 
+    const {VITE_API_KEY} = import.meta.env
     const { query } = useParams();
     const [state, dispatch] = useContext(Contexto);
-    const url2 = `https://api.unsplash.com/search/photos?page=1&per_page=12&query=${query}&client_id=R8DT-ZH2fRH0v0giTIuIyMoozd2pI6LC7Ew8gUTKOYI`
+    const url = `https://api.unsplash.com/search/photos?page=1&per_page=12&query=${query}&client_id=${VITE_API_KEY}`
     const navigate = useNavigate();
     const handleClick = (id) => {
 
@@ -24,7 +25,7 @@ export const SearchGallery = () => {
     useEffect(() => {
         async function getItems() {
             try {
-                const response = await getImg(url2);
+                const response = await getImg(url);
                 dispatch({ tipo: 'mostrarBusqueda', fotos: response.results })
             } catch (error) {
                 console.error('Error: ', error)
@@ -47,6 +48,7 @@ export const SearchGallery = () => {
                                         <img src={imagenes.urls.small}
                                             className='h-full max-w-full rounded-lg object-fill object-center '
                                             alt={imagenes.alt_description}
+                                            style={{viewTransitionName: `imagen-${imagenes.id}`}}
                                         />
                                     </picture>
                                 )

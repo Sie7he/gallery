@@ -7,3 +7,4 @@ export async function getImg(url) {
     console.log('Error: ' + error)
    }
 } 
+

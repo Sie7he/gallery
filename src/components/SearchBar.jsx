@@ -4,14 +4,16 @@ import { useNavigate } from 'react-router-dom';
 export const SearchBar = () => {
     const navigate = useNavigate();
     const [value, setValue] = useState('')
-    const handleClick = () => {
-            navigate('/')
-    }
+ 
     const handleSubmit = (e) => {
         e.preventDefault();
         navigate(`/buscar/${value}`)
 
     }
+    const handleClick = () => {
+            navigate(`/`)    
+        }
+  
 
   return (
     

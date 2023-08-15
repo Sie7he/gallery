@@ -6,10 +6,10 @@ import { Contexto } from '../services/Memory';
 
 export const Grid = () => {
 
-
+    const {VITE_API_KEY} = import.meta.env
     const [state, dispatch] = useContext(Contexto);
    
-    const url = 'https://api.unsplash.com/photos/?client_id=R8DT-ZH2fRH0v0giTIuIyMoozd2pI6LC7Ew8gUTKOYI'
+    const url = `https://api.unsplash.com/photos/?client_id=${VITE_API_KEY}`
    
 
     useEffect(() => {
