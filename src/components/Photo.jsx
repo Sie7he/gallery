@@ -12,16 +12,6 @@ export const Photo = () => {
     const [state, dispatch] = useContext(Contexto);
     const img = state.objetos[id];
    
-    const handleClick = () => {
-
-        if (!document.startViewTransition) {
-            navigate('/')
-        }
-        document.startViewTransition(() => {
-            flushSync(() => navigate('/'))
-        }
-        )
-    }
 
     useEffect(() => {
         async function getPhoto() {
@@ -39,9 +29,7 @@ export const Photo = () => {
     return (
        img && 
             <>
-            <header>
-            <button onClick={handleClick}> Volver </button>
-        </header>
+         
         <main className='m-auto max-w-4xl'>
             <div className='grid grid-cols-2 gap-x-12 mt-20'>
 

@@ -1,8 +1,6 @@
 import { createContext, useReducer } from "react";
 
-
-const lista = [];
-
+const lista = []
 const estadoInicial = {
     orden: [],
     objetos: {}
@@ -12,7 +10,15 @@ function reductor(estado, accion) {
 
     switch (accion.tipo) {
         case 'mostrar': {
-            const fotos= accion.fotos;
+            const fotos = accion.fotos;
+            const nuevoEstado = {
+                orden: fotos.map(foto => foto.id),
+                objetos: fotos.reduce((objeto, foto) => ({...objeto, [foto.id]: foto}), {})
+            };
+            return nuevoEstado;
+        };
+        case 'mostrarBusqueda': {
+            const fotos = accion.fotos;
             const nuevoEstado = {
                 orden: fotos.map(foto => foto.id),
                 objetos: fotos.reduce((objeto, foto) => ({...objeto, [foto.id]: foto}), {})
