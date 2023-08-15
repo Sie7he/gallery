@@ -26,13 +26,12 @@ export const Photo = () => {
         getPhoto();
     }, [dispatch])
 
-
+console.log(state)
     return (
        img && 
-            <>
          
-        <main className='m-auto max-w-4xl'>
-            <div className='grid grid-cols-2 gap-x-12 mt-20'>
+        <main className='m-auto max-w-4xl photo'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-x-12 mt-20 mx-4'>
 
                 <div className='flex flex-col'>
                     <picture className='mb-8 w-full relative'>
@@ -47,13 +46,14 @@ export const Photo = () => {
                     </picture>
                 </div>
                 <aside>
-                    <h1 className='text-3xl text-amber-700 mb-4'>{img.alt_description}</h1>
+                    <h1 className='text-3xl text-amber-700 '>{img.alt_description.toUpperCase()}</h1>
+                    <h2 className='text-lg text-slate-500'>Autor: {img.user.username}</h2>
                     <p className='text-lg'>{img.description}</p>
                 </aside>
             </div>
 
         </main>
-        </>
+        
     
     )
 }
