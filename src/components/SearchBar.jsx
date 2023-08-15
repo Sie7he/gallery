@@ -5,14 +5,7 @@ export const SearchBar = () => {
     const navigate = useNavigate();
     const [value, setValue] = useState('')
     const handleClick = () => {
-
-        if (!document.startViewTransition) {
             navigate('/')
-        }
-        document.startViewTransition(() => {
-            flushSync(() => navigate('/'))
-        }
-        )
     }
     const handleSubmit = (e) => {
         e.preventDefault();
