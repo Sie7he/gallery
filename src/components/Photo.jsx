@@ -46,7 +46,7 @@ console.log(state)
                     </picture>
                 </div>
                 <aside>
-                    <h1 className='text-3xl text-amber-700 '>{img.alt_description.toUpperCase()}</h1>
+                    <h1 className='text-3xl text-amber-700 '>{img.alt_description ? img.alt_description.toUpperCase() : 'Imagen sin título'}</h1>
                     <h2 className='text-lg text-slate-500'>Autor: {img.user.username}</h2>
                     <p className='text-lg'>{img.description}</p>
                 </aside>
