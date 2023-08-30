@@ -10,7 +10,8 @@ export const SearchGallery = () => {
     const {VITE_API_KEY} = import.meta.env
     const { query } = useParams();
     const [state, dispatch] = useContext(Contexto);
-    const url = `https://api.unsplash.com/search/photos?page=1&per_page=12&query=${query}&client_id=${VITE_API_KEY}`
+    const [page, setPage] = useState(1)
+    const url = `https://api.unsplash.com/search/photos?page=${page}&per_page=12&query=${query}&client_id=${VITE_API_KEY}`
     const navigate = useNavigate();
     const handleClick = (id) => {
 
