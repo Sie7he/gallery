@@ -6,10 +6,10 @@ import { Contexto } from '../services/Memory';
 
 export const Photo = () => {
 
-    const {VITE_API_KEY} = import.meta.env
+    const {VITE_API_KEY, VITE_URL} = import.meta.env
     const navigate = useNavigate();
     const { id } = useParams()
-    const url = `https://api.unsplash.com/photos/${id}?client_id=${VITE_API_KEY}`
+    const url = `${VITE_URL}/photos/${id}?client_id=${VITE_API_KEY}`
     const [state, dispatch] = useContext(Contexto);
     const img = state.objetos[id];
    

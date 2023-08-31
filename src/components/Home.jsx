@@ -5,18 +5,18 @@ import { flushSync } from 'react-dom';
 import { Contexto } from '../services/Memory';
 
 export const Grid = () => {
-
-    const {VITE_API_KEY} = import.meta.env
+    const {VITE_API_KEY, VITE_URL} = import.meta.env
+    const url = `${VITE_URL}/photos/?client_id=${VITE_API_KEY}`
     const [state, dispatch] = useContext(Contexto);
    
-    const url = `https://api.unsplash.com/photos/?client_id=${VITE_API_KEY}`
    
 
     useEffect(() => {
         async function getItems() {
             try {    
-                const response = await getImg(url);
-                dispatch({ tipo: 'mostrar', fotos : response })
+                const response = await fetch(url);
+                const data = await response.json();
+                dispatch({ tipo: 'mostrar', fotos : data })
             } catch (error) {
                 console.error('Error: ', error)
             }

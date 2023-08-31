@@ -9,7 +9,6 @@ import { NotFounded } from '../components/NotFounded';
 import { BrowserRouter } from 'react-router-dom';
 import { SearchBar } from '../components/SearchBar';
 import { SearchGallery } from '../components/SearchGallery';
-import { Footer } from '../components/Footer';
 
 export const AppRouter = () => {
   return (
