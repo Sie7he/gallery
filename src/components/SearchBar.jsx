@@ -18,7 +18,7 @@ export const SearchBar = () => {
   return (
     
 <nav
-  className="relative flex w-full flex-wrap items-center justify-between bg-[#838a5c] py-2 text-neutral-500 shadow-lg hover:text-neutral-700   lg:py-4">
+  className="relative flex w-full flex-wrap items-center justify-between bg-[#9991c9] py-2 text-neutral-500 shadow-lg hover:text-neutral-700   lg:py-4">
   <div className="flex w-full flex-wrap items-center justify-between px-3">
     <button
       className="ml-2 text-xl text-neutral-800 dark:text-neutral-200"

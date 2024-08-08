@@ -14,8 +14,7 @@ export const Grid = () => {
     useEffect(() => {
         async function getItems() {
             try {    
-                const response = await fetch(url);
-                const data = await response.json();
+                const data = await getImg(url);
                 dispatch({ tipo: 'mostrar', fotos : data })
             } catch (error) {
                 console.error('Error: ', error)

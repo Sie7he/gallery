@@ -11,6 +11,7 @@ function reductor(estado, accion) {
     switch (accion.tipo) {
         case 'mostrar': {
             const fotos = accion.fotos;
+            console.log(fotos)
             const nuevoEstado = {
                 orden: fotos.map(foto => foto.id),
                 objetos: fotos.reduce((objeto, foto) => ({...objeto, [foto.id]: foto}), {})
@@ -27,6 +28,7 @@ function reductor(estado, accion) {
         };
         case 'mostrarUnaFoto' : {
             const foto = accion.response;
+            console.log(foto)
             const nuevoEstado = {
                 orden: [foto.id],
                 objetos : {[foto.id]: foto}

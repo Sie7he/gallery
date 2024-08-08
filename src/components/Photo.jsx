@@ -1,61 +1,74 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { getImg } from '../services/request';
-import { useNavigate, useParams } from 'react-router-dom';
-import { flushSync } from 'react-dom';
-import { Contexto } from '../services/Memory';
+import React, { useContext, useEffect, useState } from "react";
+import { getImg } from "../services/request";
+import { useNavigate, useParams } from "react-router-dom";
+import { flushSync } from "react-dom";
+import { Contexto } from "../services/Memory";
 
 export const Photo = () => {
+  const { VITE_API_KEY, VITE_URL } = import.meta.env;
+  const { id } = useParams();
+  const url = `${VITE_URL}/photos/${id}?client_id=${VITE_API_KEY}`;
+  const [state, dispatch] = useContext(Contexto);
+  console.log(state)
+  const img = state.objetos[id];
 
-    const {VITE_API_KEY, VITE_URL} = import.meta.env
-    const navigate = useNavigate();
-    const { id } = useParams()
-    const url = `${VITE_URL}/photos/${id}?client_id=${VITE_API_KEY}`
-    const [state, dispatch] = useContext(Contexto);
-    const img = state.objetos[id];
-   
+  useEffect(() => {
+    async function getPhoto() {
+      try {
+        const response = await getImg(url);
+        dispatch({ tipo: "mostrarUnaFoto", response });
+      } catch (error) {
+        console.log("Error fetching image:", error);
+      }
+    }
+    getPhoto();
+  }, [dispatch, url]);
 
-    useEffect(() => {
-        async function getPhoto() {
-            try {
-                const response = await getImg(url);
-                dispatch({tipo : 'mostrarUnaFoto', response} )
-                
-            } catch (error) {
-                console.log("Error fetching image:", error)
-            }
-        }
-        getPhoto();
-    }, [dispatch])
-
-console.log(state)
-    return (
-       img && 
-         
-        <main className='m-auto max-w-4xl photo'>
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-x-12 mt-20 mx-4'>
-
-                <div className='flex flex-col'>
-                    <picture className='mb-8 w-full relative'>
-                       
-                            <img
-                                alt={img.alt_description}
-                                className="aspect-[28/29] h-full object-fill w-full max-w-full rounded pic-two"
-                                src={img.urls.small}
-                                style={{ viewTransitionName: `imagen-${img.id}` }}
-                            />
-                           
-                    </picture>
-                </div>
-                <aside>
-                    <h1 className='text-3xl text-amber-700 '>{img.alt_description ? img.alt_description.toUpperCase() : 'Imagen sin título'}</h1>
-                    <h2 className='text-lg text-slate-500'>Autor: {img.user.username}</h2>
-                    <p className='text-lg'>{img.description}</p>
-                </aside>
+  return (
+    img && (
+      <div className="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="relative">
+        <img
+          src={img.urls.regular}
+          alt={img.alt_description}
+          className="w-full object-cover"
+        />
+        <div className="absolute bottom-0 left-0 bg-gradient-to-t from-black via-transparent to-transparent text-white p-4 w-full">
+          <h2 className="text-xl font-semibold capitalize">{img.user.name}</h2>
+          <p className="text-sm capitalize">{img.alt_description}</p>
+        </div>
+      </div>
+      <div className="p-4">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-2">
+            <img
+              src={img.user.profile_image.small}
+              alt={img.user.name}
+              className="w-8 h-8 rounded-full"
+            />
+            <div>
+              <h3 className="text-gray-900 font-semibold">{img.user.name}</h3>
+              <p className="text-gray-600 text-sm">@{img.user.username}</p>
             </div>
+          </div>
+          <a
+            href={img.links.html}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline"
+          >
+            Ver en Unsplash
+          </a>
+        </div>
+        <div className="flex justify-between items-center text-gray-700">
+          <span>{img.likes} Me gusta</span>
+          <span>{new Date(img.created_at).toLocaleDateString()}</span>
+        </div>
+      </div>
+    </div>
 
-        </main>
-        
-    
+      
+      
     )
-}
-
+  );
+};
