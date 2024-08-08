@@ -32,6 +32,7 @@ export const Photo = () => {
           src={img.urls.regular}
           alt={img.alt_description}
           className="w-full object-cover"
+          style={{ viewTransitionName: `imagen-${img.id}` }}
         />
         <div className="absolute bottom-0 left-0 bg-gradient-to-t from-black via-transparent to-transparent text-white p-4 w-full">
           <h2 className="text-xl font-semibold capitalize">{img.user.name}</h2>
